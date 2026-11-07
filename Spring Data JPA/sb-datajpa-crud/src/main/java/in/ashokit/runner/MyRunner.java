@@ -8,6 +8,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class MyRunner implements ApplicationRunner {
 
@@ -16,11 +18,26 @@ public class MyRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Employee employee=new Employee(101,"Sujay",45000.0,"IT", EmployeeStatus.ACTIVE);
+        Employee employee=new Employee(101,"Ajay",45000.0,"IT", EmployeeStatus.ACTIVE);
         save(employee);
+
+        System.out.println("=========================");
+
+        display();
     }
 
     private void save(Employee employee)
+    {
+        employeeRepository.save(employee);
+    }
+
+    private void display()
+    {
+       List<Employee> employeeList= employeeRepository.findAll();
+       employeeList.forEach(System.out::println);
+    }
+
+    private void updateRecord(Employee employee)
     {
         employeeRepository.save(employee);
     }
