@@ -49,6 +49,19 @@ public class MyRunner implements ApplicationRunner {
 
         System.out.println("=========Get employee with department or sal===========");
         getEmployeeWithDepartmentOrSal("HR",45000.0);
+
+        System.out.println("========deleteBySalGreaterThan===============");
+        deleteEmployeeBySalGreaterThan(55000);
+
+        System.out.println("==========fetchAll================");
+        fetchAllEmployees();
+    }
+
+    private void fetchAllEmployees() {
+        for (Employee employee : employeeRepository.fetchAllEmployees()) {
+            System.out.println(employee);
+        }
+
     }
 
     private void save(Employee employee)
@@ -90,5 +103,10 @@ public class MyRunner implements ApplicationRunner {
     {
         List<Employee> employees=employeeRepository.fetchEmployeeWithDeptOrSal(department,sal);
         employees.forEach(System.out::println);
+    }
+    
+    private void deleteEmployeeBySalGreaterThan(double sal){
+        int i = employeeRepository.deleteBySalGreaterThan(sal);
+        System.out.println(i+" rows deleted...");
     }
 }

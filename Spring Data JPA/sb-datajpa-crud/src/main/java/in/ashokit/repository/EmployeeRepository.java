@@ -1,7 +1,9 @@
 package in.ashokit.repository;
 
 import in.ashokit.entity.Employee;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -18,4 +20,11 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
     @Query(value = "select e from Employee e where e.department= :department or e.sal> :sal")
     List<Employee> fetchEmployeeWithDeptOrSal(@Param("department") String department,@Param("sal") double sal);
+
+    @Query(value = "delete from employee where sal>?", nativeQuery = true)
+    @Modifying
+    @Transactional
+    int deleteBySalGreaterThan(double sal);
+
+    List<Employee> fetchAllEmployees();
 }
