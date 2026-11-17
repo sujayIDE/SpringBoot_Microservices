@@ -20,7 +20,6 @@ public class AddressService {
     private UserRepository userRepo;
 
     public AddressEntity saveAddress(Integer userId, AddressEntity addressEntity) {
-
         Optional<UserEntity> byId = userRepo.findById(userId);
         if(byId.isPresent()) {
             UserEntity userEntity = byId.get();

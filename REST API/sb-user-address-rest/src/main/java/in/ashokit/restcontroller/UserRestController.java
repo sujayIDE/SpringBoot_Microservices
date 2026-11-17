@@ -2,6 +2,8 @@ package in.ashokit.restcontroller;
 
 import in.ashokit.entity.UserEntity;
 import in.ashokit.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +13,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@Tag(name = "UserRestAPI",description = "This is rest api User and Address ")
 public class UserRestController {
 
     @Autowired
     private UserService userService;
 
     @PostMapping("/create")
+    @Operation(summary = "create user",description = "it will create the user whenever request is come for this create url")
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity)
     {
         UserEntity saveUser = userService.saveUser(userEntity);
