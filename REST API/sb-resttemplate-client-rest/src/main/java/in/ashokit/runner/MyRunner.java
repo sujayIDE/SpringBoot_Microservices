@@ -5,6 +5,7 @@ import org.apache.catalina.User;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ public class MyRunner implements ApplicationRunner {
             }
         }*/
 
-        String url = "http://localhost:8080/api/user/users";
+        /*String url = "http://localhost:8080/api/user/users";
 
         ParameterizedTypeReference<List<UserEntity>> typeReference =
                 new ParameterizedTypeReference<>() {};
@@ -60,6 +61,26 @@ public class MyRunner implements ApplicationRunner {
                 System.out.println(user.getName());
                 System.out.println(user.getEmail());
             }
-        }
+        }*/
+
+        String url = "http://localhost:8080/api/user/create";
+        UserEntity userEntity=new UserEntity();;
+        userEntity.setName("john");
+        userEntity.setEmail("john@gmail.com");
+        userEntity.setPhno(989898989L);
+
+        ParameterizedTypeReference<UserEntity> reference=new ParameterizedTypeReference<>() {};
+
+        HttpEntity<UserEntity> httpEntity=new HttpEntity<>(userEntity);
+
+        ResponseEntity<UserEntity> exchange = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                httpEntity,
+                reference
+        );
+
+        UserEntity body = exchange.getBody();
+        System.out.println(body);
     }
 }
